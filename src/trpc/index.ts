@@ -1,12 +1,10 @@
 import { auth, currentUser } from "@clerk/nextjs";
-import { publicProcedure, router } from "./trpc";
+import { privateProcedure, publicProcedure, router } from "./trpc";
 import { TRPCError } from "@trpc/server";
 import { db } from "@/db";
+import { z } from "zod";
 export const appRouter = router({
   // ...
-  hello: publicProcedure.query(async () => {
-    return "hello from trpc";
-  }),
   authCallback: publicProcedure.query(async () => {
     const { userId } = auth();
 
@@ -32,11 +30,50 @@ export const appRouter = router({
           email: email,
         },
       });
-      console.log("user created");
     }
 
     return { success: true };
   }),
+  getUserFiles: privateProcedure.query(async ({ ctx }) => {
+    const { userId } = ctx;
+    return await db.file.findMany({
+      where: {
+        userId,
+      },
+    });
+  }),
+  getFile: privateProcedure
+    .input(z.object({ key: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { userId } = ctx;
+      const file = await db.file.findFirst({
+        where: {
+          key: input.key,
+          userId,
+        },
+      });
+      if (!file) throw new TRPCError({ code: "NOT_FOUND" });
+      return file;
+    }),
+  deleteFile: privateProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { userId } = ctx;
+      const file = await db.file.findFirst({
+        where: {
+          id: input.id,
+          userId,
+        },
+      });
+      if (!file) throw new TRPCError({ code: "NOT_FOUND" });
+
+      await db.file.delete({
+        where: {
+          id: input.id,
+        },
+      });
+      return file;
+    }),
 });
 // Export type router type signature,
 // NOT the router itself.
