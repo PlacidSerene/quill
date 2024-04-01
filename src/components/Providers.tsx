@@ -21,7 +21,7 @@ const Providers = ({ children }: PropsWithChildren) => {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: `${process.env.VERCEL_URL}/api/trpc`,
+          url: "https://quill-nu-blue.vercel.app/api/trpc",
         }),
       ],
     })
