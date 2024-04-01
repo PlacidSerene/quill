@@ -38,7 +38,9 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   const { width, ref } = useResizeDetector();
   const [numPages, setNumPages] = useState<number>();
   const [curPage, setCurPage] = useState<number>(1);
+  const [renderedScale, setRenderedScale] = useState<number | null>(null);
   const [scale, setScale] = useState<number>(1);
+  const isLoading = renderedScale !== scale;
   const [rotation, setRotation] = useState<number>(0);
   const customPageValidator = z.object({
     page: z
@@ -174,11 +176,28 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
                 setNumPages(numPages);
               }}
             >
+              {isLoading && renderedScale ? (
+                <Page
+                  pageNumber={curPage}
+                  width={width ? width : 1}
+                  scale={scale}
+                  rotate={rotation}
+                  key={"@" + renderedScale}
+                />
+              ) : null}
               <Page
+                className={cn(isLoading ? "hidden" : "")}
                 pageNumber={curPage}
                 width={width ? width : 1}
                 scale={scale}
                 rotate={rotation}
+                key={"@" + scale}
+                loading={
+                  <div className="flex justify-center">
+                    <Loader2 className="my-24 h-6 w-6 animate-spin" />
+                  </div>
+                }
+                onRenderSuccess={() => setRenderedScale(scale)}
               />
             </Document>
           </div>
