@@ -3,7 +3,7 @@ import React from "react";
 import { UserButton } from "@clerk/nextjs";
 import { CircleDollarSign } from "lucide-react";
 
-const UserProfileButton = async () => {
+const UserProfileButton = () => {
   return (
     <UserButton>
       <UserButton.UserProfileLink
