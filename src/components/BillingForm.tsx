@@ -24,6 +24,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
   const { mutate: createStripeSession, isPending } =
     trpc.createStripeSession.useMutation({
       onSuccess: ({ url }) => {
+        console.log(url);
         if (url) window.location.href = url;
         if (!url) {
           toast({
