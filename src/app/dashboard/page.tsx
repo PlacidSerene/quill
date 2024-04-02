@@ -3,6 +3,7 @@ import { auth, clerkClient } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { db } from "@/db";
 import Dashboard from "@/components/Dashboard";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
 
 const page = async () => {
   const { userId } = auth();
@@ -18,7 +19,8 @@ const page = async () => {
   });
   if (!dbUser) redirect("/auth-callback?origin=dashboard");
 
-  return <Dashboard />;
+  const subscriptionPlan = await getUserSubscriptionPlan();
+  return <Dashboard subscriptionPlan={subscriptionPlan} />;
 };
 
 export default page;

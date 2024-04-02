@@ -5,6 +5,7 @@ import { buttonVariants } from "./ui/button";
 import { SignInButton, SignUpButton, auth } from "@clerk/nextjs";
 import { ArrowRight } from "lucide-react";
 import UserProfileButton from "./UserProfileButton";
+import MobileNav from "./MobileNav";
 const Navbar = async () => {
   // const { isSignedIn } = useUser();
   const { userId } = auth();
@@ -15,6 +16,7 @@ const Navbar = async () => {
           <Link href="/" className="z-40 flex font-semibold">
             <span>quill.</span>
           </Link>
+          <MobileNav isAuth={!!userId} />
           <div className="hidden items-center space-x-4 font-semibold sm:flex">
             <>
               {!userId ? (
