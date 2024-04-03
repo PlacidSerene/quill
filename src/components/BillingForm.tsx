@@ -24,7 +24,6 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
   const { mutate: createStripeSession, isPending } =
     trpc.createStripeSession.useMutation({
       onSuccess: ({ url }) => {
-        console.log(url);
         if (url) window.location.href = url;
         if (!url) {
           toast({
@@ -35,7 +34,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
         }
       },
     });
-
+  console.log(subscriptionPlan);
   return (
     <MaxWidthWrapper className="max-w-5xl">
       <form
@@ -50,7 +49,8 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
           <CardHeader>
             <CardTitle>Subscription Plan</CardTitle>
             <CardDescription>
-              You are currently on the <strong>{subscriptionPlan.name}</strong>
+              You are currently on the{" "}
+              <strong>{subscriptionPlan.name} plan</strong>
             </CardDescription>
           </CardHeader>
           <CardFooter>
