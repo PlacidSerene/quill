@@ -5,11 +5,11 @@ import { authMiddleware } from "@clerk/nextjs";
 
 export default authMiddleware({
   // Allow signed out users to access the specified routes:
-  publicRoutes: ["/", "/sign-in(.*)", "/sign-up(.*)"],
+  publicRoutes: ["/", "/sign-in(.*)", "/sign-up(.*)", "/api/webhooks(.*)"],
   // Prevent the specified routes from accessing
   // authentication information:
   // ignoredRoutes: ['/no-auth-in-this-route']
-  ignoredRoutes: ["/((?!api|trpc))(_next.*|.+.[w]+$)", "/api/webhooks/stripe"],
+  // ignoredRoutes: ["/((?!api|trpc))(_next.*|.+.[w]+$)", "/api/webhooks/stripe"],
 });
 
 export const config = {
