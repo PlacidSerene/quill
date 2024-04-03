@@ -72,7 +72,7 @@ export const appRouter = router({
 
       return { url: stripeSession.url };
     }
-    console.log(PLANS.find((plan) => plan.name === "Pro")?.price.priceIds.test);
+
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: billingUrl,
       cancel_url: billingUrl,
