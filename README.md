@@ -1,36 +1,179 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a name="readme-top"></a>
 
-## Getting Started
+# Quill - The SaaS for Students
 
-First, run the development server:
+![Quill - The SaaS for Students](/public/thumbnail.png "Quill - The SaaS for Students")
+
+<!-- Table of Contents -->
+<details>
+
+<summary>
+
+# :notebook_with_decorative_cover: Table of Contents
+
+</summary>
+
+- [Folder Structure](#bangbang-folder-structure)
+- [Getting Started](#toolbox-getting-started)
+- [Screenshots](#camera-screenshots)
+- [Tech Stack](#gear-tech-stack)
+- [Stats](#wrench-stats)
+- [Contribute](#raised_hands-contribute)
+- [Acknowledgements](#gem-acknowledgements)
+- [Buy Me a Coffee](#coffee-buy-me-a-coffee)
+- [Follow Me](#rocket-follow-me)
+- [Learn More](#books-learn-more)
+- [Deploy on Vercel](#page_with_curl-deploy-on-vercel)
+- [Give A Star](#star-give-a-star)
+- [Star History](#star2-star-history)
+- [Give A Star](#star-give-a-star)
+
+</details>
+
+## :bangbang: Folder Structure
+
+Here is the folder structure of this app.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+quill/
+  |- prisma/
+    |- schema.prisma
+  |- public/
+  |- src/
+    |-- app/
+        |--- _trpc/
+        |--- api/
+        |--- auth-callback/
+        |--- dashboard/
+        |--- pricing/
+        |--- favicon.ico
+        |--- globals.css
+        |--- layout.tsx
+        |--- page.tsx
+    |-- components/
+        |--- chat/
+        |--- ui/
+        |--- billing-form.tsx
+        |--- dashboard.tsx
+        |--- delete-user-modal.tsx
+        |--- icons.tsx
+        |--- max-width-wrapper.tsx
+        |--- mobile-nav.tsx
+        |--- navbar.tsx
+        |--- pdf-fullscreen.tsx
+        |--- pdf-renderer.tsx
+        |--- providers.tsx
+        |--- upgrade-button.tsx
+        |--- upload-button.tsx
+        |--- user-account-nav.tsx
+    |-- config/
+        |--- infinite-query.ts
+        |--- stripe.ts
+    |-- db/
+        |--- index.ts
+    |-- lib/
+        |--- validators/
+        |--- openai.ts
+        |--- pinecone.ts
+        |--- stripe.ts
+        |--- uploadthing.ts
+        |--- utils.ts
+    |-- trpc/
+        |--- index.ts
+        |--- trpc.ts
+    |-- types/
+        |--- message.ts
+    |-- middleware.ts
+  |- .env
+  |- .eslintrc.js
+  |- .gitignore
+  |- next-env.d.ts
+  |- components.json
+  |- environment.d.ts
+  |- next.config.mjs
+  |- package-lock.json
+  |- package.json
+  |- postcss.config.js
+  |- tailwind.config.ts
+  |- tsconfig.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## :toolbox: Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Clone this repository to your local computer.
+2. Create `.env` file in **root** directory.
+3. Contents of `.env`:
 
-## Learn More
+### 4. Clerk
 
-To learn more about Next.js, take a look at the following resources:
+- **Environment Variables**:
+  - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+  - `CLERK_SECRET_KEY`
+  - `NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in`
+  - `NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up`
+  - `NEXT_PUBLIC_CLERK_AFTER_SIGN_OUT_URL=/sign-in`
+- **Instructions**:
+  - Visit [Clerk website](https://clerk.com) and sign in to your account.
+  - Navigate to your account settings or developer dashboard to find the credentials.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. Supabase Database URI
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Environment Variable**: `DATABASE_URL=`
+- **Instructions**:
+  - Access your PostgreSQL supabase.
+  - Locate the database connection details.
+  - Construct the URI following the provided template and replace the placeholders with your actual database credentials.
 
-## Deploy on Vercel
+### 6. Uploadthing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Environment Variables**:
+  - `UPLOADTHING_SECRET`
+  - `UPLOADTHING_APP_ID`
+- **Instructions**:
+  - Visit the Uploadthing developer dashboard or website.
+  - Log in to your account and navigate to the API or application settings.
+  - Retrieve `UPLOADTHING_SECRET` and `UPLOADTHING_APP_ID`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 7. Pinecone API Key
+
+- **Environment Variable**: `PINECONE_API_KEY=xxxxxxxxxx-xxxxx-xxxx-xxxxxx-xxxxxxxxxxx`
+- **Instructions**:
+  - Visit Pinecone's official website and log in to your account.
+  - Navigate to the API or developer section to find your API key.
+  - Retrieve `PINECONE_API_KEY`.
+
+### 8. OpenAI API Key
+
+- **Environment Variable**: `OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+- **Instructions**:
+  - Log in to your OpenAI account on the official website.
+  - Navigate to the API or developer dashboard.
+  - Retrieve your API key.
+
+### 9. Stripe
+
+- **Environment Variables**:
+  - `STRIPE_SECRET_KEY`
+  - `STRIPE_PRICE_ID`
+  - `STRIPE_WEBHOOK_SECRET`
+- **Instructions**:
+  - Log in to your Stripe account.
+  - Navigate to the API or developer section.
+  - Retrieve the following:
+    - `STRIPE_SECRET_KEY`
+    - `STRIPE_PRICE_ID`
+    - `STRIPE_WEBHOOK_SECRET`
+
+10. Now app is fully configured 👍 and you can start using this app using either one of `npm run dev` or `yarn dev`.
+
+**NOTE:** Please make sure to keep your API keys and configuration values secure and do not expose them publicly.
+
+## :gear: Tech Stack
+
+[![React JS](https://skillicons.dev/icons?i=react "React JS")](https://react.dev/ "React JS") [![Next JS](https://skillicons.dev/icons?i=next "Next JS")](https://nextjs.org/ "Next JS") [![Typescript](https://skillicons.dev/icons?i=ts "Typescript")](https://www.typescriptlang.org/ "Typescript") [![Tailwind CSS](https://skillicons.dev/icons?i=tailwind "Tailwind CSS")](https://tailwindcss.com/ "Tailwind CSS") [![Vercel](https://skillicons.dev/icons?i=vercel "Vercel")](https://vercel.app/ "Vercel") [![Postgresql](https://skillicons.dev/icons?i=postgres "Postgresql")](https://www.postgresql.org/ "Postgresql")
+
+## :wrench: Stats
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
